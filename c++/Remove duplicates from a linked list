@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+           int data;
+           node *next;
+};
+node *addNode(node *start,int x)
+{
+           node *temp=new node;
+           temp->data=x;
+           temp->next=NULL;
+           if(start==NULL)
+                      return temp;
+           node *ptr;
+           ptr=start;
+           while(ptr->next !=NULL)
+           {
+                      ptr=ptr->next;
+           }
+           ptr->next=temp;
+           return start;
+}
+node* removeDuplicates(node *start)
+{
+           node *p1,*p2,*dup;
+           p1=start;
+           while(p1!=NULL)
+           {
+                      p2=p1;
+                      while(p2->next!=NULL)
+                      {
+                                 if(p1->data==p2->next->data)
+                                 {
+                                            dup=p2->next;
+                                            p2->next=p2->next->next;
+                                            delete(dup);
+                                 }
+                                 else
+                                            p2=p2->next;
+                      }
+                      p1=p1->next;
+           }
+           return start;
+}
+void printList(node *temp)
+{
+           while(temp!=NULL)
+           {
+                      cout<<temp->data<<" ";
+                      temp=temp->next;
+           }
+}
+int main()
+{
+           node *sample=NULL;
+           sample=addNode(sample,10);
+           sample=addNode(sample,20);
+           sample=addNode(sample,20);
+           sample=addNode(sample,10);
+           sample=addNode(sample,40);
+           sample=addNode(sample,50);
+           cout<<"List:";
+           printList(sample);
+           cout<<endl;
+           sample=removeDuplicates(sample);
+           cout<<"New List:";
+           printList(sample);
+           return 0;
+}
